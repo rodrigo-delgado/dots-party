@@ -10,8 +10,6 @@ var circles = d3.range(324).map(function(i) {
     y: Math.floor(i / 30) * (radius + 1) * 2
   };
 });
-var soundEfx; // Sound Efx
-var soundLoad = "./music/water.wav"; //Game Over sound efx
 
 var simulation = d3.forceSimulation(circles)
     .force("collide", d3.forceCollide(radius + 3).iterations(1))
