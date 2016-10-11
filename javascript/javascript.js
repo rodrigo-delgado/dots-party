@@ -10,10 +10,14 @@ var circles = d3.range(324).map(function(i) {
     y: Math.floor(i / 30) * (radius + 1) * 2
   };
 });
+var soundEfx; // Sound Efx
+var soundLoad = "./music/water.wav"; //Game Over sound efx
 
 var simulation = d3.forceSimulation(circles)
     .force("collide", d3.forceCollide(radius + 3).iterations(1))
     .on("tick", drawCircles);
+    soundEfx = document.getElementById("soundEfx");
+
 
 d3.select(canvas)
     .call(d3.drag()
@@ -49,11 +53,15 @@ function dragstarted() {
   if (!d3.event.active) simulation.alphaTarget(0.3).restart();
   d3.event.subject.fx = d3.event.subject.x;
   d3.event.subject.fy = d3.event.subject.y;
+  document.getElementById("bounce").play();
+
+
 }
 
 function dragged() {
   d3.event.subject.fx = d3.event.x;
   d3.event.subject.fy = d3.event.y;
+
 }
 
 function dragended() {
@@ -61,10 +69,4 @@ function dragended() {
   d3.event.subject.fx = null;
   d3.event.subject.fy = null;
 }
-$("#play").mouseenter(function(){
-	$("<audio></audio>").attr({
-		'src':'./music/water.wav'+Math.ceil(Math.random() * 5)+'.wav',
-		'volume':0.4,
-		'autoplay':'autoplay'
-	}).appendTo("body");
-});
+document.getElementById("water").play();
